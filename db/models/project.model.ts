@@ -11,14 +11,14 @@ export class Project extends Model<IProjectAttributes, IProjectCreationAttribute
     allowNull: false,
     primaryKey: true
   })
-  projectId: number
+  projectId!: number
 
   @Column({
     type: DataType.STRING,
     unique: true,
     allowNull: false
   })
-  projectName: string
+  projectName!: string
 
   @Column({
     type: DataType.STRING,
@@ -27,7 +27,7 @@ export class Project extends Model<IProjectAttributes, IProjectCreationAttribute
       len: [3, 20]
     }
   })
-  title: string
+  title!: string
 
   @Column({
     type: DataType.STRING,
@@ -36,13 +36,12 @@ export class Project extends Model<IProjectAttributes, IProjectCreationAttribute
       len: [0, 250]
     }
   })
-  description: string
+  description!: string
 
   @BelongsToMany(() => Product, {
     through: () => ProjectProductMapping,
     foreignKey: 'projectId',
     otherKey: 'productId'
   })
-  Product: Product[]
-  // Omitted createdAt and updatedAt for brevity (already defined by timestamps: true)
+  products!: Product[]
 }

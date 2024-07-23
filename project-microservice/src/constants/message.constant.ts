@@ -15,5 +15,10 @@ export const messageConstant = {
   ERROR_ADD_PROJECT: 'Error adding project',
   ERROR_FETCHING_PROJECTS: 'Error fetching projects',
   PROJECT_NOT_FOUND: 'Project not found',
-  PROJECTS_RETRIEVED_SUCCESSFULLY: 'Projects retrieved successfully'
+  PROJECTS_RETRIEVED_SUCCESSFULLY: 'Projects retrieved successfully',
+
+  //Product-Project Messages
+  PRODUCT_ADDED_TO_PROJECT: 'Product added to project successfully',
+  PRODUCT_NOT_FOUND_IN_PROJECT: 'Product not found in project',
+  PRODUCT_REMOVED_FROM_PROJECT: 'Product removed form project'
 }

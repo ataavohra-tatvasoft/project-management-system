@@ -1,3 +1,3 @@
-import productValidations from './product.validation'
+import projectValidations from './project.validation'
 
-export { productValidations }
+export { projectValidations }

@@ -11,14 +11,14 @@ export class Product extends Model<IProductAttributes, IProductCreationAttribute
     allowNull: false,
     primaryKey: true
   })
-  productId: number
+  productId!: number
 
   @Column({
     type: DataType.STRING,
     unique: true,
     allowNull: false
   })
-  productName: string
+  productName!: string
 
   @Column({
     type: DataType.INTEGER,
@@ -27,7 +27,7 @@ export class Product extends Model<IProductAttributes, IProductCreationAttribute
       min: 0
     }
   })
-  quantity: number
+  quantity!: number
 
   @Column({
     type: DataType.STRING,
@@ -36,14 +36,12 @@ export class Product extends Model<IProductAttributes, IProductCreationAttribute
       len: [0, 250]
     }
   })
-  description: string
+  description!: string
 
   @BelongsToMany(() => Project, {
     through: () => ProjectProductMapping,
     foreignKey: 'productId',
     otherKey: 'projectId'
   })
-  Project: Project[]
-
-  // Omitted createdAt and updatedAt for brevity (already defined by timestamps: true)
+  projects!: Project[]
 }

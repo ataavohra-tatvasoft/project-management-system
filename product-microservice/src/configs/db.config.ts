@@ -4,17 +4,18 @@ import { loggerUtils } from '../utils'
 import { envConfig } from '.'
 import { httpStatusConstant } from '../constants'
 import { HttpError } from '../libs'
+import { ProjectProductMapping, Project, Product } from '../../../db/models'
 
 const connectToDatabase = async () => {
   try {
     const sequelize = new Sequelize({
-      database: 'project-management-system',
-      host: 'localhost',
+      database: String(envConfig.dbName),
+      host: String(envConfig.serverHost),
       dialect: 'mysql',
       username: String(envConfig.dbUser),
       password: String(envConfig.dbPassword),
       storage: ':memory:',
-      models: []
+      models: [Project, Product, ProjectProductMapping]
     })
 
     const connection: void = await sequelize.authenticate()

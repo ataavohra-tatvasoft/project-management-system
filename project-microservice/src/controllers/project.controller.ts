@@ -1,83 +1,112 @@
 import { Request, Response } from 'express'
 import { Product, Project, ProjectProductMapping } from '../../../db/models'
+import { responseHandlerUtils } from '../utils'
+import { httpErrorMessageConstant, httpStatusConstant, messageConstant } from '../constants'
+import { HttpError } from '../libs'
 
-export const getAllProjects = async (req: Request, res: Response) => {
-  try {
-    const projects = await Project.findAll({ include: [Product] })
-    res.json(projects)
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to retrieve projects' })
+const getAllProjects = async (req: Request, res: Response) => {
+  const projects = await Project.findAll({
+    include: [Product]
+  })
+  if (!projects) {
+    throw new HttpError(
+      messageConstant.ERROR_FETCHING_PROJECTS,
+      httpStatusConstant.INTERNAL_SERVER_ERROR
+    )
   }
+  return responseHandlerUtils.responseHandler(res, {
+    statusCode: httpStatusConstant.OK,
+    message: httpErrorMessageConstant.SUCCESSFUL,
+    data: projects
+  })
 }
 
-export const getProjectById = async (req: Request, res: Response) => {
+const getProjectById = async (req: Request, res: Response) => {
   const { id } = req.params
-  try {
-    const project = await Project.findByPk(id, { include: [Product] })
-    if (project) {
-      res.json(project)
-    } else {
-      res.status(404).json({ error: 'Project not found' })
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to retrieve project' })
+
+  const project = await Project.findByPk(id, { include: [Product] })
+  if (!project) {
+    throw new HttpError(messageConstant.PROJECT_NOT_FOUND, httpStatusConstant.NOT_FOUND)
   }
+  return responseHandlerUtils.responseHandler(res, {
+    statusCode: httpStatusConstant.OK,
+    message: httpErrorMessageConstant.SUCCESSFUL,
+    data: project
+  })
 }
 
-export const createProject = async (req: Request, res: Response) => {
-  try {
-    const project = await Project.create(req.body)
-    res.status(201).json(project)
-  } catch (error) {
-    res.status(400).json({ error: 'Failed to create project' })
-  }
+const createProject = async (req: Request, res: Response) => {
+  const { projectName, title, description } = req.body
+  const project = await Project.create({ projectName, title, description })
+  return responseHandlerUtils.responseHandler(res, {
+    statusCode: httpStatusConstant.CREATED,
+    message: httpErrorMessageConstant.SUCCESSFUL,
+    data: project
+  })
 }
 
-export const updateProject = async (req: Request, res: Response) => {
+const updateProject = async (req: Request, res: Response) => {
   const { id } = req.params
-  try {
-    const [updated] = await Project.update(req.body, { where: { projectId: id } })
-    if (updated) {
-      const updatedProject = await Project.findByPk(id, { include: [Product] })
-      res.json(updatedProject)
-    } else {
-      res.status(404).json({ error: 'Project not found' })
-    }
-  } catch (error) {
-    res.status(400).json({ error: 'Failed to update project' })
+
+  const { projectName, title, description } = req.body
+  const updated = await Project.update(
+    { projectName, title, description },
+    { where: { projectId: id } }
+  )
+  if (!updated) {
+    throw new HttpError(messageConstant.PROJECT_NOT_FOUND, httpStatusConstant.NOT_FOUND)
   }
+  const updatedProject = await Project.findByPk(id)
+  return responseHandlerUtils.responseHandler(res, {
+    statusCode: httpStatusConstant.OK,
+    message: httpErrorMessageConstant.SUCCESSFUL,
+    data: updatedProject
+  })
 }
 
-export const deleteProject = async (req: Request, res: Response) => {
+const deleteProject = async (req: Request, res: Response) => {
   const { id } = req.params
-  try {
-    const deleted = await Project.destroy({ where: { projectId: id } })
-    if (deleted) {
-      res.status(204).end()
-    } else {
-      res.status(404).json({ error: 'Project not found' })
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to delete project' })
+
+  const deleted = await Project.destroy({ where: { projectId: id } })
+  if (!deleted) {
+    throw new HttpError(messageConstant.PROJECT_NOT_FOUND, httpStatusConstant.NOT_FOUND)
   }
+  return responseHandlerUtils.responseHandler(res, {
+    statusCode: httpStatusConstant.NO_CONTENT,
+    message: httpErrorMessageConstant.SUCCESSFUL
+  })
 }
 
-export const addProductToProject = async (req: Request, res: Response) => {
+const addProductToProject = async (req: Request, res: Response) => {
   const { projectId, productId } = req.body
-  try {
-    await ProjectProductMapping.create({ projectId, productId })
-    res.status(201).json({ message: 'Product added to project' })
-  } catch (error) {
-    res.status(400).json({ error: 'Failed to add product to project' })
-  }
+
+  const mapping = await ProjectProductMapping.create({ projectId, productId })
+  return responseHandlerUtils.responseHandler(res, {
+    statusCode: httpStatusConstant.CREATED,
+    message: messageConstant.PRODUCT_ADDED_TO_PROJECT,
+    data: mapping
+  })
 }
 
-export const removeProductFromProject = async (req: Request, res: Response) => {
+const removeProductFromProject = async (req: Request, res: Response) => {
   const { projectId, productId } = req.body
-  try {
-    await ProjectProductMapping.destroy({ where: { projectId, productId } })
-    res.status(200).json
-  } catch (error) {
-    res.status(400).json({ error: 'Failed to add product to project' })
+
+  const deleted = await ProjectProductMapping.destroy({ where: { projectId, productId } })
+  if (!deleted) {
+    throw new HttpError(messageConstant.PRODUCT_NOT_FOUND_IN_PROJECT, httpStatusConstant.NOT_FOUND)
   }
+  return responseHandlerUtils.responseHandler(res, {
+    statusCode: httpStatusConstant.OK,
+    message: messageConstant.PRODUCT_REMOVED_FROM_PROJECT
+  })
+}
+
+export default {
+  getAllProjects,
+  getProjectById,
+  createProject,
+  updateProject,
+  deleteProject,
+  addProductToProject,
+  removeProductFromProject
 }
