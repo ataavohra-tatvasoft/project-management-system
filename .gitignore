@@ -134,3 +134,15 @@ dist
 
 #Package Files
 package-lock.json
+
+# Product-Microservices
+product-microservice/logs
+product-microservice/node_modules
+product-microservice/package-lock-json
+product-microservice/.env
+
+# Project-Microservices
+project-microservice/logs
+project-microservice/node_modules
+project-microservice/package-lock-json
+project-microservice/.env
