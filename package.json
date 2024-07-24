@@ -10,7 +10,13 @@
     "seed": "npx sequelize-cli db:seed:all --config db/config/config.json --seeders-path db/seeders",
     "seed:undo": "npx sequelize-cli db:seed:undo:all --config db/config/config.json --seeders-path db/seeders",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "start:product": "cd product && npm run dev:watch",
+    "start:project": "cd project && npm run dev:watch",
+    "start:all": "concurrently \"npm run start:product\" \"npm run start:project\"",
+    "install:product": "cd product && npm install",
+    "install:project": "cd project && npm install",
+    "install:all": "concurrently \"npm run install:product\" \"npm run install:project\""
   },
   "keywords": [
     "product-microservice",
@@ -20,12 +26,14 @@
   "license": "ISC",
   "dependencies": {
     "mysql2": "^3.10.3",
+    "sequelize": "^6.37.3",
     "sequelize-typescript": "^2.1.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
     "@typescript-eslint/eslint-plugin": "^7.17.0",
     "@typescript-eslint/parser": "^7.17.0",
+    "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-formatter-pretty": "^6.0.1",
     "eslint-plugin-prettier": "^5.2.1",

@@ -12,7 +12,6 @@ router.get(
   celebrate(projectValidations.getProjectByIdSchema),
   wrapController(projectControllers.getProjectById)
 )
-
 router.post(
   '/projects',
   celebrate(projectValidations.createProjectSchema),
@@ -28,14 +27,13 @@ router.delete(
   celebrate(projectValidations.getProjectByIdSchema),
   wrapController(projectControllers.deleteProject)
 )
-
 router.post(
-  '/add-product',
+  '/projects/add-product',
   celebrate(projectValidations.addProductToProjectSchema),
   wrapController(projectControllers.addProductToProject)
 )
-router.post(
-  '/remove-product',
+router.delete(
+  '/projects/remove-product/:productId/:projectId',
   celebrate(projectValidations.removeProductFromProjectSchema),
   wrapController(projectControllers.removeProductFromProject)
 )

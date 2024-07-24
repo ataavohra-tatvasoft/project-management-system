@@ -15,8 +15,17 @@ const connectToDatabase = async () => {
       username: String(envConfig.dbUser),
       password: String(envConfig.dbPassword),
       storage: ':memory:',
-      models: [Product, Project, ProjectProductMapping]
+      logging: false
     })
+
+    // Initialize models
+    Project.initialize(sequelize)
+    Product.initialize(sequelize)
+    ProjectProductMapping.initialize(sequelize)
+
+    // Set up associations
+    Project.associate()
+    Product.associate()
 
     const connection: void = await sequelize.authenticate()
 

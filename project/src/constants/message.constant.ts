@@ -20,5 +20,5 @@ export const messageConstant = {
   //Product-Project Messages
   PRODUCT_ADDED_TO_PROJECT: 'Product added to project successfully',
   PRODUCT_NOT_FOUND_IN_PROJECT: 'Product not found in project',
-  PRODUCT_REMOVED_FROM_PROJECT: 'Product removed form project'
+  PRODUCT_REMOVED_FROM_PROJECT: 'Product removed from project'
 }

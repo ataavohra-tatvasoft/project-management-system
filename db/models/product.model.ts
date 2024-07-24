@@ -1,47 +1,61 @@
-import { Table, Column, DataType, Model, BelongsToMany } from 'sequelize-typescript'
+import { Model, DataTypes, Sequelize, ModelAttributes, InitOptions } from 'sequelize'
 import { IProductAttributes, IProductCreationAttributes } from '../../interfaces'
 import { ProjectProductMapping } from './projectProductMapping.model'
 import { Project } from './project.model'
 
-@Table({ timestamps: true, tableName: 'products' })
 export class Product extends Model<IProductAttributes, IProductCreationAttributes> {
-  @Column({
-    type: DataType.INTEGER,
-    autoIncrement: true,
-    allowNull: false,
-    primaryKey: true
-  })
-  productId!: number
+  public productId!: number
+  public productName!: string
+  public quantity!: number
+  public description!: string
+  public projects!: Project[]
 
-  @Column({
-    type: DataType.STRING,
-    unique: true,
-    allowNull: false
-  })
-  productName!: string
+  public readonly createdAt!: Date
+  public readonly updatedAt!: Date
 
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 0
+  static initialize(sequelize: Sequelize) {
+    const attributes: ModelAttributes = {
+      productId: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
+      },
+      productName: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false
+      },
+      quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          min: 0
+        }
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [0, 250]
+        }
+      }
     }
-  })
-  quantity!: number
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-    validate: {
-      len: [0, 250]
+    const options: InitOptions<Product> = {
+      sequelize,
+      tableName: 'products',
+      timestamps: true
     }
-  })
-  description!: string
 
-  @BelongsToMany(() => Project, {
-    through: () => ProjectProductMapping,
-    foreignKey: 'productId',
-    otherKey: 'projectId'
-  })
-  projects!: Project[]
+    Product.init(attributes, options)
+  }
+
+  static associate() {
+    Product.belongsToMany(Project, {
+      through: ProjectProductMapping,
+      foreignKey: 'productId',
+      otherKey: 'projectId'
+    })
+  }
 }

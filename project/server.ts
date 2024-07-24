@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import { dbConfig, envConfig } from './src/configs'
 import { messageConstant } from './src/constants'
-// import routes from './src/routes'
+import routes from './src/routes '
 import { errorHandlerUtils, loggerUtils } from './src/utils'
 
 /**
@@ -19,7 +19,7 @@ const createServer = async (): Promise<Express> => {
     app.use(cors())
 
     // Routes setup
-    // app.use(routes)
+    app.use(routes)
 
     // Error handling middleware
     app.use(errorHandlerUtils.errorHandler)

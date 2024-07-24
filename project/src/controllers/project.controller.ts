@@ -89,7 +89,7 @@ const addProductToProject = async (req: Request, res: Response) => {
 }
 
 const removeProductFromProject = async (req: Request, res: Response) => {
-  const { projectId, productId } = req.body
+  const { projectId, productId } = req.params
 
   const deleted = await ProjectProductMapping.destroy({ where: { projectId, productId } })
   if (!deleted) {

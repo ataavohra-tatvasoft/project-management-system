@@ -70,7 +70,7 @@ const deleteProduct = async (req: Request, res: Response) => {
     throw new HttpError(messageConstant.PRODUCT_NOT_FOUND, httpStatusConstant.NOT_FOUND)
   }
   return responseHandlerUtils.responseHandler(res, {
-    statusCode: httpStatusConstant.NO_CONTENT,
+    statusCode: httpStatusConstant.OK,
     message: httpErrorMessageConstant.SUCCESSFUL
   })
 }

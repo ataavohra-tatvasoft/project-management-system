@@ -9,39 +9,39 @@ module.exports = {
       'projects',
       [
         {
-          project_name: 'Project Alpha',
+          projectName: 'Project Alpha',
           title: 'Alpha Title',
           description: 'Description for Project Alpha',
-          created_at: new Date(),
-          updated_at: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          project_name: 'Project Beta',
+          projectName: 'Project Beta',
           title: 'Beta Title',
           description: 'Description for Project Beta',
-          created_at: new Date(),
-          updated_at: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          project_name: 'Project Gamma',
+          projectName: 'Project Gamma',
           title: 'Gamma Title',
           description: 'Description for Project Gamma',
-          created_at: new Date(),
-          updated_at: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          project_name: 'Project Delta',
+          projectName: 'Project Delta',
           title: 'Delta Title',
           description: 'Description for Project Delta',
-          created_at: new Date(),
-          updated_at: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          project_name: 'Project Epsilon',
+          projectName: 'Project Epsilon',
           title: 'Epsilon Title',
           description: 'Description for Project Epsilon',
-          created_at: new Date(),
-          updated_at: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ],
       {}

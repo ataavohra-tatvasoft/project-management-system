@@ -10,34 +10,34 @@ module.exports = {
       'project_product_mappings',
       [
         {
-          project_id: 1,
-          product_id: 1,
-          created_at: new Date(),
-          updated_at: new Date()
+          projectId: 1,
+          productId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          project_id: 2,
-          product_id: 2,
-          created_at: new Date(),
-          updated_at: new Date()
+          projectId: 2,
+          productId: 2,
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          project_id: 3,
-          product_id: 3,
-          created_at: new Date(),
-          updated_at: new Date()
+          projectId: 3,
+          productId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          project_id: 4,
-          product_id: 4,
-          created_at: new Date(),
-          updated_at: new Date()
+          projectId: 4,
+          productId: 4,
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          project_id: 5,
-          product_id: 5,
-          created_at: new Date(),
-          updated_at: new Date()
+          projectId: 5,
+          productId: 5,
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ],
       {}

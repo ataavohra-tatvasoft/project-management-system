@@ -10,34 +10,40 @@ module.exports = {
         allowNull: false,
         primaryKey: true
       },
-      project_id: {
+      projectId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'projects',
-          key: 'project_id'
+          key: 'projectId'
         },
         onDelete: 'CASCADE'
       },
-      product_id: {
+      productId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'products',
-          key: 'product_id'
+          key: 'productId'
         },
         onDelete: 'CASCADE'
       },
-      created_at: {
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW
       },
-      updated_at: {
+      updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.NOW
       }
+    })
+
+    await queryInterface.addConstraint('project_product_mappings', {
+      fields: ['projectId', 'productId'],
+      type: 'unique',
+      name: 'unique_project_product_pair'
     })
   },
 

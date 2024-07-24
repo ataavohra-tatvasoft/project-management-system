@@ -34,7 +34,7 @@ const addProductToProjectSchema = {
 }
 
 const removeProductFromProjectSchema = {
-  body: Joi.object({
+  params: Joi.object({
     projectId: Joi.number().integer().positive().required(),
     productId: Joi.number().integer().positive().required()
   })

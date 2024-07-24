@@ -9,44 +9,44 @@ module.exports = {
       'products',
       [
         {
-          product_id: 1,
-          product_name: 'Product 1',
+          productId: 1,
+          productName: 'Product 1',
           quantity: 100,
           description: 'Description for Product 1',
-          created_at: new Date(),
-          updated_at: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          product_id: 2,
-          product_name: 'Product 2',
+          productId: 2,
+          productName: 'Product 2',
           quantity: 200,
           description: 'Description for Product 2',
-          created_at: new Date(),
-          updated_at: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          product_id: 3,
-          product_name: 'Product 3',
+          productId: 3,
+          productName: 'Product 3',
           quantity: 150,
           description: 'Description for Product 3',
-          created_at: new Date(),
-          updated_at: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          product_id: 4,
-          product_name: 'Product 4',
+          productId: 4,
+          productName: 'Product 4',
           quantity: 50,
           description: 'Description for Product 4',
-          created_at: new Date(),
-          updated_at: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          product_id: 5,
-          product_name: 'Product 5',
+          productId: 5,
+          productName: 'Product 5',
           quantity: 300,
           description: 'Description for Product 5',
-          created_at: new Date(),
-          updated_at: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ],
       {}
